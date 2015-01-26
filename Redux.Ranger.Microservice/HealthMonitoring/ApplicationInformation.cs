@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,9 +19,9 @@ namespace Redux.Ranger.Microservice.HealthMonitoring
             get { return "ApplicationInformation"; }
         }
 
-        public int StatusCode
+        public HttpStatusCode StatusCode
         {
-            get { return 0; }
+            get { return HttpStatusCode.OK; }
         }
     }
 }

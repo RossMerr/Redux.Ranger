@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Net;
 
 namespace Redux.Ranger.Microservice.HealthMonitoring
 {
@@ -15,9 +16,9 @@ namespace Redux.Ranger.Microservice.HealthMonitoring
             get { return "Heartbeat"; }
         }
 
-        public int StatusCode
+        public HttpStatusCode StatusCode
         {
-            get { throw new NotImplementedException(); }
+            get { return HttpStatusCode.OK; }
         }
     }
 }

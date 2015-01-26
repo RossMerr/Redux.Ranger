@@ -5,7 +5,7 @@ using Owin;
 
 namespace Redux.Ranger.Microservice.Configs
 {
-    public class StartupConfig
+    internal class StartupConfig
     {
         // add an extra parameter of type IKernel
         public void Configure(IAppBuilder appBuilder)
