@@ -27,8 +27,6 @@ namespace Redux.Ranger.Microservice
             
             var container = Bootstrapper.Container as Autofac.Core.Container;
 
-            //var checks = container.Resolve<ApiController>();
-
             var config = container.Resolve<MicroserviceConfiguration>();
 
             var name = System.Reflection.Assembly.GetEntryAssembly().GetName();
@@ -37,8 +35,7 @@ namespace Redux.Ranger.Microservice
             {
                 // Pass it to Topshelf
                 c.UseAutofacContainer(container);
-               // c.UseCommonLogging();
-
+                //c.UseCommonLogging();
                 c.Service<BaseService>(s =>
                 {
                     // Let Topshelf use it

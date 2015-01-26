@@ -33,11 +33,7 @@ namespace Redux.Ranger.Microservice.Modules
                 .Where(t => t.IsAssignableTo<IExternalComponentChecker>())
                 .AsImplementedInterfaces().SingleInstance();
 
-            //builder.RegisterAssemblyTypes(assembly).Where(p => p.IsAssignableTo<ApiController>())
-            //    .InstancePerLifetimeScope().As<ApiController>();
-
             builder.RegisterApiControllers(assembly);
-
         }
     }
 }
