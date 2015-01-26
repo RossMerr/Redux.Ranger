@@ -5,7 +5,7 @@ using Owin;
 
 namespace Redux.Ranger.Microservice.Configs
 {
-    internal class StartupConfig
+    public class StartupConfig
     {
         // add an extra parameter of type IKernel
         public void Configure(IAppBuilder appBuilder)
@@ -18,8 +18,7 @@ namespace Redux.Ranger.Microservice.Configs
             var container = Bootstrapper.Container as Autofac.Core.Container;
 
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
-
-
+            
             appBuilder.UseAutofacMiddleware(container);
             appBuilder.UseAutofacWebApi(config);
             appBuilder.UseWebApi(config);

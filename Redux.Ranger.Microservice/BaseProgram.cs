@@ -1,42 +1,44 @@
-﻿using System.Collections.Generic;
-using System.Reflection;
-using System.Web.Http;
-using Autofac;
+﻿using Autofac;
 using Bootstrap;
 using Bootstrap.Autofac;
 using Common.Logging;
-using Redux.Ranger.Client;
-using Redux.Ranger.Microservice.HealthMonitoring;
+using Common.Logging.Configuration;
 using Topshelf;
 using Topshelf.Autofac;
-using Topshelf.Common.Logging;
 
 namespace Redux.Ranger.Microservice
 {
-    public class Program
+    public class BaseProgram
     {
-        private static readonly ILog Log = LogManager.GetLogger<Program>();
+        private static readonly ILog Log = LogManager.GetLogger<BaseProgram>();
 
-        static void Main(string[] args)
+        public static void Main()
         {
             Log.Info("Bootstrapping ");
 
             Bootstrapper.With.Autofac().Start();
 
             Log.Info("Bootstrapped");
-            
+
             var container = Bootstrapper.Container as Autofac.Core.Container;
 
             var config = container.Resolve<MicroserviceConfiguration>();
 
             var name = System.Reflection.Assembly.GetEntryAssembly().GetName();
 
+            // create properties
+            var properties = new NameValueCollection();
+            properties["showDateTime"] = "true";
+
+            // set Adapter
+            Common.Logging.LogManager.Adapter = new Common.Logging.Simple.ConsoleOutLoggerFactoryAdapter(properties);
+
             HostFactory.Run(c =>
             {
                 // Pass it to Topshelf
                 c.UseAutofacContainer(container);
                 //c.UseCommonLogging();
-                c.Service<BaseService>(s =>
+                c.Service<IBaseService>(s =>
                 {
                     // Let Topshelf use it
                     s.ConstructUsingAutofacContainer();
@@ -45,7 +47,6 @@ namespace Redux.Ranger.Microservice
                             (service, hostControl) =>
                                 service.Start(hostControl)
                         );
-
                     s.WhenStopped
                         (
                             (service, hostControl) =>

@@ -1,21 +1,28 @@
 ﻿using System;
 using Common.Logging;
 using Microsoft.Owin.Hosting;
-using Redux.Ranger.Client;
 using Redux.Ranger.Microservice.Configs;
 using Topshelf;
 
 namespace Redux.Ranger.Microservice
 {
-    internal class BaseService
+    public interface IBaseService
+    {
+        bool Start(HostControl hostControl);
+        bool Stop(HostControl hostControl);
+    }
+
+    internal class BaseService : IBaseService
     {
         private readonly ILog _log = LogManager.GetLogger<BaseService>();
 
         private readonly MicroserviceConfiguration _configuration;
+        private readonly RegisterService _registerService;
 
-        public BaseService(MicroserviceConfiguration configuration)
+        public BaseService(MicroserviceConfiguration configuration, RegisterService registerService)
         {
             _configuration = configuration;
+            _registerService = registerService;
         }
 
         protected IDisposable WebAppHolder
@@ -52,6 +59,8 @@ namespace Redux.Ranger.Microservice
                 
             }
 
+            _registerService.Start();
+
             _log.Info("Started");
 
             return true;
@@ -65,6 +74,8 @@ namespace Redux.Ranger.Microservice
 
             WebAppHolder.Dispose();
             WebAppHolder = null;
+
+            _registerService.Stop();
 
             _log.Info("Stopped");
 
