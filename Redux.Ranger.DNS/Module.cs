@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using Autofac;
+using Redux.Ranger.Microservice;
 
 namespace Redux.Ranger.DNS
 {
@@ -11,6 +12,9 @@ namespace Redux.Ranger.DNS
                 .As<MicroserviceConfiguration>().AsSelf();
 
             builder.RegisterType<BaseService>().As<BaseService>();
+
+            builder.RegisterType<DnsService>().As<IService>();
+
         }
     }
 }

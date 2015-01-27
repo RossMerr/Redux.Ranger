@@ -6,23 +6,36 @@ using Topshelf;
 
 namespace Redux.Ranger.Microservice
 {
-    public interface IBaseService
+    public delegate void ServiceEventHandler();
+    
+    internal class Service : ServiceControl
     {
-        bool Start(HostControl hostControl);
-        bool Stop(HostControl hostControl);
-    }
-
-    internal class BaseService : IBaseService
-    {
-        private readonly ILog _log = LogManager.GetLogger<BaseService>();
+        private readonly ILog _log = LogManager.GetLogger<Service>();
 
         private readonly MicroserviceConfiguration _configuration;
         private readonly RegisterService _registerService;
+        private readonly IService _service;
 
-        public BaseService(MicroserviceConfiguration configuration, RegisterService registerService)
+        public event ServiceEventHandler ServiceStart;
+        public event ServiceEventHandler ServiceStop;
+
+        public Service(MicroserviceConfiguration configuration, RegisterService registerService, IService service)
         {
             _configuration = configuration;
             _registerService = registerService;
+            _service = service;
+            ServiceStart += BaseStart;
+            ServiceStop += BaseStop;
+        }
+
+        void BaseStart()
+        {
+            _service.Start();
+        }
+
+        void BaseStop()
+        {
+            _service.Stop();
         }
 
         protected IDisposable WebAppHolder
@@ -61,6 +74,8 @@ namespace Redux.Ranger.Microservice
 
             _registerService.Start();
 
+            ServiceStart();
+            
             _log.Info("Started");
 
             return true;
@@ -76,6 +91,8 @@ namespace Redux.Ranger.Microservice
             WebAppHolder = null;
 
             _registerService.Stop();
+
+            ServiceStop();
 
             _log.Info("Stopped");
 

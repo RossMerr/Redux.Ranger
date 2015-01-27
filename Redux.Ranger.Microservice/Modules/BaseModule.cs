@@ -20,19 +20,28 @@ namespace Redux.Ranger.Microservice.Modules
             LoadFromAllAssemblies(builder, ranger);
 
             builder.Register(p => new MicroserviceConfiguration(IPAddress.Parse("8.8.8.8"), 8000))
-                .As<MicroserviceConfiguration>().PreserveExistingDefaults();
+                .As<MicroserviceConfiguration>()
+                .PreserveExistingDefaults();
 
-            builder.RegisterType<BaseService>().As<IBaseService>().PreserveExistingDefaults();
+            builder.RegisterType<Service>()
+                .As<Service>()
+                .SingleInstance();
 
-            builder.RegisterType<RegisterService>().As<RegisterService>().PreserveExistingDefaults();
+            builder.RegisterType<BaseService>()
+                .As<IService>()
+                .PreserveExistingDefaults();
 
+            builder.RegisterType<RegisterService>()
+                .As<RegisterService>()
+                .PreserveExistingDefaults();
         }
 
         private static void LoadFromAllAssemblies(ContainerBuilder builder, Assembly assembly)
         {
             builder.RegisterAssemblyTypes(assembly)
                 .Where(t => t.IsAssignableTo<IExternalComponentChecker>())
-                .AsImplementedInterfaces().SingleInstance();
+                .AsImplementedInterfaces()
+                .SingleInstance();
 
             builder.RegisterApiControllers(assembly);
         }

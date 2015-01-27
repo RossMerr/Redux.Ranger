@@ -37,8 +37,10 @@ namespace Redux.Ranger.Microservice
 
             _log.InfoFormat("DNS Address: {0}", IPAddress.Any.ToString());
 
+            var dnsAddress = Dns.GetHostEntry(Dns.GetHostName()).AddressList[0];
 
-            DnsUpdateMessage dnsResult = new DnsClient(IPAddress.Any, 5000).SendUpdate(msg);
+
+            DnsUpdateMessage dnsResult = new DnsClient(dnsAddress, 5000).SendUpdate(msg);
 
             return true;
         }

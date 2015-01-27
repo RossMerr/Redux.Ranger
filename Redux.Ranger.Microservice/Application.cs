@@ -8,9 +8,20 @@ using Topshelf.Autofac;
 
 namespace Redux.Ranger.Microservice
 {
-    public class BaseProgram
+    public class Application
     {
-        private static readonly ILog Log = LogManager.GetLogger<BaseProgram>();
+        private static readonly ILog Log = LogManager.GetLogger<Application>();
+
+        public static event ServiceEventHandler ServiceStart;
+        public static event ServiceEventHandler ServiceStop;
+
+        static Application()
+        {
+            ServiceStart += EventServiceCatcher;
+            ServiceStop += EventServiceCatcher;
+        }
+
+        static void EventServiceCatcher() { }
 
         public static void Main()
         {
@@ -31,14 +42,20 @@ namespace Redux.Ranger.Microservice
             properties["showDateTime"] = "true";
 
             // set Adapter
-            Common.Logging.LogManager.Adapter = new Common.Logging.Simple.ConsoleOutLoggerFactoryAdapter(properties);
+            LogManager.Adapter = new Common.Logging.Simple.ConsoleOutLoggerFactoryAdapter(properties);
+
+            var serviceControl = container.Resolve<Service>();
+
+            serviceControl.ServiceStart += ServiceStart;
+            serviceControl.ServiceStop += ServiceStop;
 
             HostFactory.Run(c =>
             {
                 // Pass it to Topshelf
                 c.UseAutofacContainer(container);
                 //c.UseCommonLogging();
-                c.Service<IBaseService>(s =>
+
+                c.Service<Service>(s =>
                 {
                     // Let Topshelf use it
                     s.ConstructUsingAutofacContainer();
@@ -46,6 +63,7 @@ namespace Redux.Ranger.Microservice
                         (
                             (service, hostControl) =>
                                 service.Start(hostControl)
+
                         );
                     s.WhenStopped
                         (
