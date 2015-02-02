@@ -1,7 +1,6 @@
 ﻿using System;
 using Bootstrap;
 using Bootstrap.Autofac;
-using Microsoft.Practices.ServiceLocation;
 using Redux.Ranger.Microservice;
 
 namespace Redux.Ranger.NuGet
@@ -12,9 +11,7 @@ namespace Redux.Ranger.NuGet
         {
             Bootstrapper.With.Autofac().With.Start();
 
-            var microService = ServiceLocator.Current.GetInstance<IService>();
-
-            var service = new OwinServiceHost(new Uri("http://localhost/"), microService)
+            var service = new OwinServiceHost(new Uri("http://localhost/"))
             {
                 ServiceName = "NuGet",
                 ServiceDisplayName = "NuGet Service",

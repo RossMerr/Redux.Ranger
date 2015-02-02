@@ -1,25 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using ARSoft.Tools.Net.Dns;
-using ARSoft.Tools.Net.Dns.DynamicUpdate;
-using Common.Logging;
+﻿using MediatR;
+using Redux.Ranger.Microservice.Notification;
 
-namespace Redux.Ranger.Microservice
+namespace Redux.Ranger.Microservice.Register
 {
-    internal class RegisterService
+    public class RegisterHandler : RequestHandler<Start>
     {
-        private readonly ILog _log = LogManager.GetLogger<RegisterService>();
-
-
-        public RegisterService()
-        {
-        }
-
-        public bool Start()
+        protected override void HandleCore(Start message)
         {
 
             //var msg = new DnsUpdateMessage
@@ -37,13 +23,6 @@ namespace Redux.Ranger.Microservice
 
 
             //DnsUpdateMessage dnsResult = new DnsClient(dnsAddress, 5000).SendUpdate(msg);
-
-            return true;
-        }
-
-        public bool Stop()
-        {
-            return true;
         }
     }
 }

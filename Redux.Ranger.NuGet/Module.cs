@@ -1,5 +1,7 @@
 ﻿using Autofac;
+using MediatR;
 using Redux.Ranger.Microservice;
+using Redux.Ranger.Microservice.Notification;
 
 namespace Redux.Ranger.NuGet
 {
@@ -7,7 +9,9 @@ namespace Redux.Ranger.NuGet
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<MyGetService>().As<IService>();
+            builder.RegisterType<StartHandler>().As<IRequestHandler<Start, MediatR.Unit>>();
+            builder.RegisterType<StopHandler>().As<IRequestHandler<Stop, MediatR.Unit>>();
+
 
             NuGetRoutes.Start();
         }

@@ -68,6 +68,10 @@
     <Reference Include="CommonServiceLocator.AutofacAdapter.Unofficial">
       <HintPath>..\packages\CommonServiceLocator.AutofacAdapter.Unofficial.3.5.0.0\lib\Net40\CommonServiceLocator.AutofacAdapter.Unofficial.dll</HintPath>
     </Reference>
+    <Reference Include="MediatR, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\MediatR.1.0.0.0\lib\portable-net45+win+wp80+Xamarin.iOS10+MonoAndroid10+MonoTouch10\MediatR.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Owin">
       <HintPath>..\packages\Microsoft.Owin.3.0.0\lib\net45\Microsoft.Owin.dll</HintPath>
     </Reference>
@@ -129,23 +133,24 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DnsService.cs" />
     <Compile Include="Module.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StartHandler.cs" />
+    <Compile Include="StopHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Redux.Ranger.Autofac\Redux.Ranger.Autofac.csproj">
+      <Project>{5fed41a3-efc5-4692-ace2-0dca6b467d01}</Project>
+      <Name>Redux.Ranger.Autofac</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Redux.Ranger.Microservice\Redux.Ranger.Microservice.csproj">
       <Project>{D2D02FAE-87E9-43B3-B6C0-CA4DE6CAA464}</Project>
       <Name>Redux.Ranger.Microservice</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Redux.Ranger\Redux.Ranger.csproj">
-      <Project>{7d25f543-6793-4686-bc9d-8c52253b597b}</Project>
-      <Name>Redux.Ranger</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

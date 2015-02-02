@@ -1,7 +1,9 @@
 ﻿using System;
 using Common.Logging;
+using MediatR;
 using Microsoft.Owin.Hosting;
 using Redux.Ranger.Microservice.Configs;
+using Redux.Ranger.Microservice.Notification;
 using Topshelf;
 
 namespace Redux.Ranger.Microservice
@@ -11,32 +13,13 @@ namespace Redux.Ranger.Microservice
     internal class Service : ServiceControl
     {
         private readonly ILog _log = LogManager.GetLogger<Service>();
-
-        private readonly RegisterService _registerService;
-        private readonly IService _service;
-
-        public event ServiceEventHandler ServiceStart;
-        public event ServiceEventHandler ServiceStop;
         private readonly Uri _uri;
+        private readonly IMediator _mediator;
 
-        public Service(Uri uri, RegisterService registerService, IService service)
+        public Service(Uri uri, IMediator mediator)
         {
             _uri = uri;
-            _registerService = registerService;
-            _service = service;
-            ServiceStart += BaseStart;
-            ServiceStop += BaseStop;
-        }
-
-
-        void BaseStart()
-        {
-            _service.Start();
-        }
-
-        void BaseStop()
-        {
-            _service.Stop();
+            _mediator = mediator;
         }
 
         protected IDisposable WebAppHolder
@@ -44,7 +27,6 @@ namespace Redux.Ranger.Microservice
             get;
             set;
         }
-
 
         public bool Start(HostControl hostControl)
         {
@@ -66,9 +48,7 @@ namespace Redux.Ranger.Microservice
                 
             }
 
-            _registerService.Start();
-
-            ServiceStart();
+            _mediator.Send(new Start());
             
             _log.Info("Started");
 
@@ -84,9 +64,7 @@ namespace Redux.Ranger.Microservice
             WebAppHolder.Dispose();
             WebAppHolder = null;
 
-            _registerService.Stop();
-
-            ServiceStop();
+            _mediator.Send(new Stop());
 
             _log.Info("Stopped");
 

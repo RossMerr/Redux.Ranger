@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{D2D02FAE-87E9-43B3-B6C0-CA4DE6CAA464}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Redux.Ranger.Microservice</RootNamespace>
     <AssemblyName>Redux.Ranger.Microservice</AssemblyName>
@@ -67,6 +67,9 @@
     </Reference>
     <Reference Include="CommonServiceLocator.AutofacAdapter.Unofficial">
       <HintPath>..\packages\CommonServiceLocator.AutofacAdapter.Unofficial.3.5.0.0\lib\Net40\CommonServiceLocator.AutofacAdapter.Unofficial.dll</HintPath>
+    </Reference>
+    <Reference Include="MediatR">
+      <HintPath>..\packages\MediatR.1.0.0.0\lib\portable-net45+win+wp80+Xamarin.iOS10+MonoAndroid10+MonoTouch10\MediatR.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Owin">
       <HintPath>..\packages\Microsoft.Owin.3.0.0\lib\net45\Microsoft.Owin.dll</HintPath>
@@ -130,8 +133,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IService.cs" />
+    <Compile Include="Notification\Stop.cs" />
     <Compile Include="OwinServiceHost.cs" />
+    <Compile Include="Register\RegisterHandler.cs" />
+    <Compile Include="Register\UnregisterHandler.cs" />
     <Compile Include="Service.cs" />
     <Compile Include="Configs\JsonContentNegotiator.cs" />
     <Compile Include="Configs\WebApiConfig.cs" />
@@ -139,21 +144,13 @@
     <Compile Include="HealthMonitoring\HealthServiceController.cs" />
     <Compile Include="HealthMonitoring\Heartbeat.cs" />
     <Compile Include="HealthMonitoring\IExternalComponentChecker.cs" />
-    <Compile Include="Modules\BaseModule.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Configs\StartupConfig.cs" />
-    <Compile Include="RegisterService.cs" />
+    <Compile Include="Notification\Start.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Redux.Ranger\Redux.Ranger.csproj">
-      <Project>{7d25f543-6793-4686-bc9d-8c52253b597b}</Project>
-      <Name>Redux.Ranger</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

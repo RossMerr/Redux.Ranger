@@ -2,6 +2,8 @@
 using Bootstrap;
 using Common.Logging;
 using Common.Logging.Configuration;
+using MediatR;
+using Microsoft.Practices.ServiceLocation;
 using Topshelf;
 using Topshelf.Autofac;
 
@@ -11,20 +13,10 @@ namespace Redux.Ranger.Microservice
     {
         private static readonly ILog Log = LogManager.GetLogger<OwinServiceHost>();
 
-        public event ServiceEventHandler ServiceStart;
-        public event ServiceEventHandler ServiceStop;
-        
-        static void EventServiceCatcher() { }
-
-        public OwinServiceHost(Uri uri, IService service)
+        public OwinServiceHost(Uri uri)
         {
             Uri = uri;
-            Service = service;
-            ServiceStart += EventServiceCatcher;
-            ServiceStop += EventServiceCatcher;
         }
-
-        public IService Service { get; set; }
 
         public Uri Uri { get; set; }
         public string ServiceName { get; set; }
@@ -43,11 +35,10 @@ namespace Redux.Ranger.Microservice
 
             // set Adapter
             LogManager.Adapter = new Common.Logging.Simple.ConsoleOutLoggerFactoryAdapter(properties);
-            
-            var serviceControl = new Service(Uri, new RegisterService(), Service); 
 
-            serviceControl.ServiceStart += ServiceStart;
-            serviceControl.ServiceStop += ServiceStop;
+            var mediator = ServiceLocator.Current.GetInstance<IMediator>();
+
+            var serviceControl = new Service(Uri, mediator); 
 
             HostFactory.Run(c =>
             {

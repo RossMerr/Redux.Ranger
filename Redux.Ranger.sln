@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Redux.Ranger", "Redux.Ranger\Redux.Ranger.csproj", "{7D25F543-6793-4686-BC9D-8C52253B597B}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Redux.Ranger.Microservice", "Redux.Ranger.Microservice\Redux.Ranger.Microservice.csproj", "{D2D02FAE-87E9-43B3-B6C0-CA4DE6CAA464}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Redux.Ranger.DNS", "Redux.Ranger.DNS\Redux.Ranger.DNS.csproj", "{7E68EA04-6FB7-4AD0-B32D-013D7721FD18}"
@@ -13,16 +11,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Redux.Ranger.Client", "Redu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Redux.Ranger.NuGet", "Redux.Ranger.NuGet\Redux.Ranger.NuGet.csproj", "{FD464DB5-BD40-4880-8748-1448AA13497E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Redux.Ranger.Autofac", "Redux.Ranger.Autofac\Redux.Ranger.Autofac.csproj", "{5FED41A3-EFC5-4692-ACE2-0DCA6B467D01}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7D25F543-6793-4686-BC9D-8C52253B597B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7D25F543-6793-4686-BC9D-8C52253B597B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7D25F543-6793-4686-BC9D-8C52253B597B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7D25F543-6793-4686-BC9D-8C52253B597B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D2D02FAE-87E9-43B3-B6C0-CA4DE6CAA464}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D2D02FAE-87E9-43B3-B6C0-CA4DE6CAA464}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D2D02FAE-87E9-43B3-B6C0-CA4DE6CAA464}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -39,6 +35,10 @@ Global
 		{FD464DB5-BD40-4880-8748-1448AA13497E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD464DB5-BD40-4880-8748-1448AA13497E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD464DB5-BD40-4880-8748-1448AA13497E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5FED41A3-EFC5-4692-ACE2-0DCA6B467D01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FED41A3-EFC5-4692-ACE2-0DCA6B467D01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FED41A3-EFC5-4692-ACE2-0DCA6B467D01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FED41A3-EFC5-4692-ACE2-0DCA6B467D01}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

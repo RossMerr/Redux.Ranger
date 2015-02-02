@@ -11,11 +11,9 @@ namespace Redux.Ranger.DNS
     {
         public static void Main()
         {
-            Bootstrapper.With.Autofac().With.ServiceLocator().With.Start();
+            Bootstrapper.With.Autofac().With.Ranger().ServiceLocator().With.Start();
 
-            var microService = ServiceLocator.Current.GetInstance<IService>();
-
-            var service = new OwinServiceHost(new Uri("http://localhost:1002/"), microService)
+            var service = new OwinServiceHost(new Uri("http://localhost:1002/"))
             {
                 ServiceName = "DNS",
                 ServiceDisplayName = "DNS Service",
