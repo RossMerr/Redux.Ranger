@@ -2,7 +2,6 @@
 using Common.Logging;
 using MediatR;
 using Microsoft.Owin.Hosting;
-using Redux.Ranger.Microservice.Configs;
 using Redux.Ranger.Microservice.Notification;
 using Topshelf;
 
@@ -42,7 +41,7 @@ namespace Redux.Ranger.Microservice
                     },
                     appBuilder =>
                     {
-                        new StartupConfig().Configure(appBuilder);
+                        new Configs.StartupConfig().Configure(appBuilder, _mediator);
                     }
                 );
                 

@@ -1,11 +1,9 @@
 ﻿using System;
-using Bootstrap;
 using Common.Logging;
 using Common.Logging.Configuration;
 using MediatR;
 using Microsoft.Practices.ServiceLocation;
 using Topshelf;
-using Topshelf.Autofac;
 
 namespace Redux.Ranger.Microservice
 {
@@ -25,10 +23,6 @@ namespace Redux.Ranger.Microservice
 
         public void Initialize()
         {
-            var container = Bootstrapper.Container as Autofac.Core.Container;
-
-            var name = System.Reflection.Assembly.GetEntryAssembly().GetName();
-
             // create properties
             var properties = new NameValueCollection();
             properties["showDateTime"] = "true";
@@ -43,7 +37,7 @@ namespace Redux.Ranger.Microservice
             HostFactory.Run(c =>
             {
                 // Pass it to Topshelf
-                c.UseAutofacContainer(container);
+           
                 //c.UseCommonLogging();
                 
                 c.Service<Service>(s =>

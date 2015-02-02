@@ -32,6 +32,8 @@ namespace Redux.Ranger
             builder.RegisterAssemblyTypes(typeof(Start).Assembly).AsImplementedInterfaces();
             builder.RegisterInstance(Console.Out).As<TextWriter>();
 
+            builder.RegisterType<StartupConfigHandler>().AsImplementedInterfaces();
+
             builder.RegisterType<RegisterHandler>().AsImplementedInterfaces();//.As<IRequestHandler<Start, MediatR.Unit>>();
             builder.RegisterType<UnregisterHandler>().AsImplementedInterfaces();//.As<IRequestHandler<Stop, MediatR.Unit>>();
 
