@@ -14,33 +14,29 @@ namespace Redux.Ranger.Microservice
     {
         private readonly ILog _log = LogManager.GetLogger<RegisterService>();
 
-        private readonly MicroserviceConfiguration _microserviceConfiguration;
 
-        public RegisterService(MicroserviceConfiguration microserviceConfiguration)
+        public RegisterService()
         {
-            _microserviceConfiguration = microserviceConfiguration;
         }
 
         public bool Start()
         {
 
-            var msg = new DnsUpdateMessage
-            {
-                ZoneName = "example.com"
-            };
-
+            //var msg = new DnsUpdateMessage
+            //{
+            //    ZoneName = "example.com"
+            //};
             
+            //msg.Updates.Add(new DeleteRecordUpdate("dyn.example.com", RecordType.A));
+            //msg.Updates.Add(new AddRecordUpdate(new ARecord("dyn.example.com", 300, IPAddress.Any)));
+            //msg.TSigOptions = new TSigRecord("my-key", TSigAlgorithm.Md5, DateTime.Now, new TimeSpan(0, 5, 0), msg.TransactionID, ReturnCode.NoError, null, Convert.FromBase64String("0jnu3SdsMvzzlmTDPYRceA=="));
 
-            msg.Updates.Add(new DeleteRecordUpdate("dyn.example.com", RecordType.A));
-            msg.Updates.Add(new AddRecordUpdate(new ARecord("dyn.example.com", 300, IPAddress.Any)));
-            msg.TSigOptions = new TSigRecord("my-key", TSigAlgorithm.Md5, DateTime.Now, new TimeSpan(0, 5, 0), msg.TransactionID, ReturnCode.NoError, null, Convert.FromBase64String("0jnu3SdsMvzzlmTDPYRceA=="));
+            //_log.InfoFormat("DNS Address: {0}", IPAddress.Any.ToString());
 
-            _log.InfoFormat("DNS Address: {0}", IPAddress.Any.ToString());
-
-            var dnsAddress = Dns.GetHostEntry(Dns.GetHostName()).AddressList[0];
+            //var dnsAddress = Dns.GetHostEntry(Dns.GetHostName()).AddressList[0];
 
 
-            DnsUpdateMessage dnsResult = new DnsClient(dnsAddress, 5000).SendUpdate(msg);
+            //DnsUpdateMessage dnsResult = new DnsClient(dnsAddress, 5000).SendUpdate(msg);
 
             return true;
         }

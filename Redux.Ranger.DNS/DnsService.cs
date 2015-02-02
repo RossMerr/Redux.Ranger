@@ -25,7 +25,7 @@ namespace Redux.Ranger.DNS
             Log.Info("Starting");
 
             _server.Start();
-            GetValue()
+            //GetValue()
             Log.Info("Started");
         }
 

@@ -1,6 +1,4 @@
-﻿using System.Net;
-using System.Reflection;
-using System.Web.Http;
+﻿using System.Reflection;
 using Autofac;
 using Autofac.Integration.WebApi;
 using Redux.Ranger.Microservice.HealthMonitoring;
@@ -18,22 +16,6 @@ namespace Redux.Ranger.Microservice.Modules
             var ranger = Assembly.GetExecutingAssembly();
             
             LoadFromAllAssemblies(builder, ranger);
-
-            builder.Register(p => new MicroserviceConfiguration(IPAddress.Parse("8.8.8.8"), 8000))
-                .As<MicroserviceConfiguration>()
-                .PreserveExistingDefaults();
-
-            builder.RegisterType<Service>()
-                .As<Service>()
-                .SingleInstance();
-
-            builder.RegisterType<BaseService>()
-                .As<IService>()
-                .PreserveExistingDefaults();
-
-            builder.RegisterType<RegisterService>()
-                .As<RegisterService>()
-                .PreserveExistingDefaults();
         }
 
         private static void LoadFromAllAssemblies(ContainerBuilder builder, Assembly assembly)

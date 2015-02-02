@@ -1,6 +1,5 @@
-﻿using Autofac;
+﻿using System;
 using Bootstrap;
-using Bootstrap.Autofac;
 using Common.Logging;
 using Common.Logging.Configuration;
 using Topshelf;
@@ -8,32 +7,33 @@ using Topshelf.Autofac;
 
 namespace Redux.Ranger.Microservice
 {
-    public class Application
+    public class OwinServiceHost
     {
-        private static readonly ILog Log = LogManager.GetLogger<Application>();
+        private static readonly ILog Log = LogManager.GetLogger<OwinServiceHost>();
 
-        public static event ServiceEventHandler ServiceStart;
-        public static event ServiceEventHandler ServiceStop;
+        public event ServiceEventHandler ServiceStart;
+        public event ServiceEventHandler ServiceStop;
+        
+        static void EventServiceCatcher() { }
 
-        static Application()
+        public OwinServiceHost(Uri uri, IService service)
         {
+            Uri = uri;
+            Service = service;
             ServiceStart += EventServiceCatcher;
             ServiceStop += EventServiceCatcher;
         }
 
-        static void EventServiceCatcher() { }
+        public IService Service { get; set; }
 
-        public static void Main()
+        public Uri Uri { get; set; }
+        public string ServiceName { get; set; }
+        public string ServiceDisplayName { get; set; }
+        public string ServiceDescription { get; set; }
+
+        public void Initialize()
         {
-            Log.Info("Bootstrapping ");
-
-            Bootstrapper.With.Autofac().Start();
-
-            Log.Info("Bootstrapped");
-
             var container = Bootstrapper.Container as Autofac.Core.Container;
-
-            var config = container.Resolve<MicroserviceConfiguration>();
 
             var name = System.Reflection.Assembly.GetEntryAssembly().GetName();
 
@@ -43,8 +43,8 @@ namespace Redux.Ranger.Microservice
 
             // set Adapter
             LogManager.Adapter = new Common.Logging.Simple.ConsoleOutLoggerFactoryAdapter(properties);
-
-            var serviceControl = container.Resolve<Service>();
+            
+            var serviceControl = new Service(Uri, new RegisterService(), Service); 
 
             serviceControl.ServiceStart += ServiceStart;
             serviceControl.ServiceStop += ServiceStop;
@@ -54,11 +54,12 @@ namespace Redux.Ranger.Microservice
                 // Pass it to Topshelf
                 c.UseAutofacContainer(container);
                 //c.UseCommonLogging();
-
+                
                 c.Service<Service>(s =>
                 {
+                     s.ConstructUsing(() => serviceControl);
                     // Let Topshelf use it
-                    s.ConstructUsingAutofacContainer();
+                    //s.ConstructUsingAutofacContainer();
                     s.WhenStarted
                         (
                             (service, hostControl) =>
@@ -72,10 +73,10 @@ namespace Redux.Ranger.Microservice
                         );
                 });
 
-                c.SetServiceName(config.Name ?? name.Name);
-                c.SetDisplayName(config.Name ?? name.Name);
-                c.SetDescription(config.Description + " v:" + name.Version.ToString());
-                
+                c.SetServiceName(ServiceName);
+                c.SetDisplayName(ServiceDisplayName);
+                c.SetDescription(ServiceDescription);
+
                 c.EnablePauseAndContinue();
                 c.EnableShutdown();
 

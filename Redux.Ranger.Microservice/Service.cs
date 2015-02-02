@@ -12,21 +12,22 @@ namespace Redux.Ranger.Microservice
     {
         private readonly ILog _log = LogManager.GetLogger<Service>();
 
-        private readonly MicroserviceConfiguration _configuration;
         private readonly RegisterService _registerService;
         private readonly IService _service;
 
         public event ServiceEventHandler ServiceStart;
         public event ServiceEventHandler ServiceStop;
+        private readonly Uri _uri;
 
-        public Service(MicroserviceConfiguration configuration, RegisterService registerService, IService service)
+        public Service(Uri uri, RegisterService registerService, IService service)
         {
-            _configuration = configuration;
+            _uri = uri;
             _registerService = registerService;
             _service = service;
             ServiceStart += BaseStart;
             ServiceStop += BaseStop;
         }
+
 
         void BaseStart()
         {
@@ -44,25 +45,18 @@ namespace Redux.Ranger.Microservice
             set;
         }
 
-        protected int Port
-        {
-            get
-            {
-                return _configuration.Port;
-            }
-        }
 
         public bool Start(HostControl hostControl)
         {
             _log.Info("Starting");
-
+            
             if (WebAppHolder == null)
             {
                 WebAppHolder = WebApp.Start
                 (
                     new StartOptions
                     {
-                        Port = Port
+                        Port = _uri.Port
                     },
                     appBuilder =>
                     {
