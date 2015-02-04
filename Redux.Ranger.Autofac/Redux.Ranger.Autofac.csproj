@@ -87,7 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="StartupConfigHandler.cs" />
-    <Compile Include="BaseModule.cs" />
+    <Compile Include="MicroserviceModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceLocatorConvenienceExtensions.cs" />
   </ItemGroup>

@@ -12,7 +12,7 @@ using Redux.Ranger.Microservice.Register;
 
 namespace Redux.Ranger
 {
-    public class BaseModule : Autofac.Module
+    public class MicroserviceModule : Autofac.Module
     {
         protected override void Load(ContainerBuilder builder)
         {

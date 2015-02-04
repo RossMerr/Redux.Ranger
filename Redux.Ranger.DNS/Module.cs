@@ -1,8 +1,6 @@
 ﻿using System.Net;
 using ARSoft.Tools.Net.Dns;
 using Autofac;
-using MediatR;
-using Redux.Ranger.Microservice.Notification;
 
 namespace Redux.Ranger.DNS
 {

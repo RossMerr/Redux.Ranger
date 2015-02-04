@@ -2,7 +2,6 @@
 using Bootstrap;
 using Bootstrap.Autofac;
 using Bootstrap.Locator;
-using Microsoft.Practices.ServiceLocation;
 using Redux.Ranger.Microservice;
 
 namespace Redux.Ranger.DNS
