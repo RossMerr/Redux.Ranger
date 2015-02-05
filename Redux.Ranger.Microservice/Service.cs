@@ -15,6 +15,7 @@ namespace Redux.Ranger.Microservice
         private readonly Uri _uri;
         private readonly IMediator _mediator;
 
+
         public Service(Uri uri, IMediator mediator)
         {
             _uri = uri;
