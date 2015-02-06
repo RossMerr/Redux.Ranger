@@ -1,0 +1,26 @@
+﻿{
+	"version": "1.0.0-*",
+	"dependencies": {
+		"Microsoft.AspNet.Server.WebListener": "1.0.0-*",
+		"Microsoft.AspNet.Server.IIS": "1.0.0-*",
+		"Microsoft.AspNet.StaticFiles": "1.0.0-*",
+		"Microsoft.AspNet.WebSockets.Server": "1.0.0-*",
+		"Microsoft.AspNet.Diagnostics": "1.0.0-*",
+		"Microsoft.AspNet.Mvc": "6.0.0-*",
+		"MediatR": "1.0.0.0",
+		"LibGit2Sharp": "0.21.0.176"
+	},
+	"commands": {
+		"run": "run",
+		//"run": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.WebListener --server.urls http://localhost:5000",
+		"web": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.WebListener --server.urls http://localhost:5000"
+	},
+	"frameworks": {
+		"aspnet50": { },
+		"aspnetcore50": {
+			"dependencies": {
+				"System.Console": "4.0.0-beta-22416"
+			}
+		}
+	}
+}

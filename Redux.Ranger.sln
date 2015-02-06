@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.22512.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Redux.Ranger.Microservice", "Redux.Ranger.Microservice\Redux.Ranger.Microservice.csproj", "{D2D02FAE-87E9-43B3-B6C0-CA4DE6CAA464}"
 EndProject
@@ -12,6 +12,15 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Redux.Ranger.NuGet", "Redux.Ranger.NuGet\Redux.Ranger.NuGet.csproj", "{FD464DB5-BD40-4880-8748-1448AA13497E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Redux.Ranger.Autofac", "Redux.Ranger.Autofac\Redux.Ranger.Autofac.csproj", "{5FED41A3-EFC5-4692-ACE2-0DCA6B467D01}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{8CDB2932-8CD5-48DB-BBC1-643147C7B0BA}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Redux.ServiceContainer", "ConsoleApp1\Redux.ServiceContainer.kproj", "{C4572097-B393-41B2-B937-6A2F852EA039}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +48,10 @@ Global
 		{5FED41A3-EFC5-4692-ACE2-0DCA6B467D01}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5FED41A3-EFC5-4692-ACE2-0DCA6B467D01}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5FED41A3-EFC5-4692-ACE2-0DCA6B467D01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4572097-B393-41B2-B937-6A2F852EA039}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4572097-B393-41B2-B937-6A2F852EA039}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4572097-B393-41B2-B937-6A2F852EA039}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4572097-B393-41B2-B937-6A2F852EA039}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
